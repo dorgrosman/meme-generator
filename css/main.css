@@ -1,0 +1,31 @@
+body {
+    background-color: rgb(110, 241, 241);
+}
+
+h2 {
+    text-align: center;
+}
+
+.gallery img {
+    margin: 5px 25px;
+    transition: 1s;
+    padding: 5px;
+    width: 200px;
+    height: 200px;
+}
+
+.gallery-container{background-color: rgb(116, 167, 245);
+
+}
+
+.gallery-container img:hover{
+   filter:grayscale(100%);
+   transform: scale(1.1);
+
+}
+
+canvas {
+    border: 1px solid black;
+    display: block;
+    margin: 0 auto;
+}

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meme Ganerator</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body onload="init()">
+
+
+    
+    
+    <h2 class="img-titel">IMG TITEL</h2>
+    <canvas id="canvas" width="600" height="600" onclick="ondraw(event)" ></canvas>
+    
+    <section class="add-txt">
+        <label for="text">TEXT :</label>
+        <input type="text" id="text" name="text" placeholder="Wriet text" onchange="drawText(value)"  >
+        <button  >img</button>
+    </section >
+    <div class="gallery-container">
+       
+    </div>
+    
+    <script src="/js/gallery-service.js"></script>
+    <script src="/js/meme-service.js"></script>
+    <script src="/js/controll.js"></script>
+</body>
+
+</html>
