@@ -4,7 +4,7 @@
 var gSize = 40;
 var gTxt = 'I never eat Falafel'
 var ctx;
-
+var gCounter = 0
 var gImgs = [{
     id: 1, url: 'meme-imgs_(square)/1.jpg', keywords: ['happy']
 },
@@ -70,20 +70,20 @@ var gMeme = {
         x: 150,
         y: 100,
         align: 'left',
-        color: 'red'
+        color: 'red',
+        stroke: 'black',
+        font: 'impact'
     }
     ]
 }
 
-
 function txtGetBegger(text) {
     var size = 10;
     gMeme.lines[gMeme.selectedLineIdx].size += size
-
-
     renderMeme()
     renderTxt(gMeme.lines);
 }
+
 function canvasItems() {
     return ctx
 }
@@ -129,13 +129,18 @@ function textGetLeft() {
 }
 
 function swichLine() {
-    gMeme.selectedLineIdx += 1
-    
-    console.log('gMeme.selectedLineIdx', gMeme.selectedLineIdx);
-    console.log('gMeme.lines.length', gMeme.lines.length);
+    console.log('gMeme',gMeme);
 
-    if (gMeme.selectedLineIdx >= gMeme.lines.length) gMeme.selectedLineIdx = 0;
-        
+    // gMeme.selectedLineIdx
+    // console.log('gCounter', gCounter);
+    gCounter++;
+    // console.log('gCounter', gCounter);
+    
+    if (gCounter >= gMeme.lines.length) gCounter = 0;
+    
+    gMeme.selectedLineIdx = gCounter;
+    console.log('gMeme',gMeme);
+
     renderMeme()
     drawRect()
 }
@@ -162,30 +167,50 @@ function draw(ev) {
 }
 
 function changeTxt(text, linesIdx) {
-    console.log('text111', text);
-    console.log('linesIdx', linesIdx);
 
+    gMeme.selectedLineIdx += 1
+
+    // if()
     var newLine = {
         txt: text,
         size: 40,
-        x: 150,
-        y: 200,
+        x: 250,
+        y: 500,
         align: 'left',
-        color: 'red'
+        color: 'red',
+        stroke: 'black',
+        font: 'impact'
     }
+
     gMeme.lines.push(newLine);
-
-    console.log('gMeme.lines', gMeme.lines);
-
-    // return gMeme.lines[linesIdx].txt = text
 }
 
 function getMeme() {
     return gMeme
 }
 
-function removeLine(){
-    
+function removeLine() {
+
+    gMeme.lines.splice(gMeme.selectedLineIdx, 1);
+    if (gMeme.selectedLineIdx > 0 && gMeme.selectedLineIdx) gMeme.selectedLineIdx -= 1;
+    renderMeme();
+}
+function fontColor(newColor){
+    gMeme.lines[gMeme.selectedLineIdx].color = newColor
+    renderMeme()
+    renderTxt(gMeme.lines);
+
 }
 
+function strokeColor(color){
+    gMeme.lines[gMeme.selectedLineIdx].stroke = color
+    renderMeme()
+    renderTxt(gMeme.lines);
+}
+
+function font(newFont){
+    gMeme.lines[gMeme.selectedLineIdx].font = newFont
+    renderMeme()
+    renderTxt(gMeme.lines);
+}
 

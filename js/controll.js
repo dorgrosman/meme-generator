@@ -18,7 +18,7 @@ function renderImg() {
     var imgs = getImgs();
     var strHtmls = imgs.map(function (img) {
         return `
-        <a  class="gallery" id="gallery" href="#canvas"> <img class="gallery-img" src="meme-imgs_(square)/${img.id}.jpg"  onclick="onUpdataMeme(${img.id})"  > </a>
+        <a  class="gallery" id="gallery" href="#header"> <img class="gallery-img" src="meme-imgs_(square)/${img.id}.jpg"  onclick="onUpdataMeme(${img.id})"  > </a>
         `
     })
     document.querySelector('.gallery-container').innerHTML = strHtmls.join('')
@@ -64,30 +64,30 @@ function drawRect(){
 }
 
 function renderMeme() {
-    // console.log('meme.selectedImgId', meme.selectedImgId);
     var img = findImsById(meme.selectedImgId)
     drawCanvas(img.url);
 }
 
 function renderTxt(text) {
+    
     text.forEach(line => {
-        drawText(line.txt, line.size,line.x,line.y);
+        drawText(line.txt, line.size,line.x,line.y,line.color,line.stroke, line.font);
     });
     
+    console.log('text',text);
 }
 
-function drawText(text, size , x , y) {
+function drawText(text, size , x , y, fontColor ,strokeColor ,font) {
     
-    gCtx.strokeStyle = 'red'
-    gCtx.fillStyle = 'white'
+    gCtx.strokeStyle = strokeColor
+    gCtx.fillStyle = fontColor
     gCtx.lineWidth = '2'
-    gCtx.font = `${size}px IMPACT`
+    gCtx.font = `${size}px ${font}`
     gCtx.textAlign = 'start'
     gCtx.fillText(text, x, y)
     gCtx.strokeText(text,x, y)
     // gCtx.beginPath();
 }
-
 
 function onDraw(ev) {
     draw(ev);
@@ -129,5 +129,14 @@ function onSwichLine(){
 function onRemoveLine(){
     removeLine();
 }
-
+function onFontColor(color){
+    fontColor(color);
+}
+ function onStrokeColor(color){
+    strokeColor(color) ;
+ }
+ function onFont(onFont){
+     console.log('onFont',onFont);
+    font(onFont);
+ }
 

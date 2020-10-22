@@ -10,7 +10,7 @@
 
 <body onload="init()">
 
-    <header class="main-header">
+    <header class="main-header" id="header">
 
         <div class="container .header-container flex space-between align-center ">
             <div class="logo"> <img src="icons/logo.png"></div>
@@ -27,18 +27,19 @@
     <main class="main-content">
         <div class="meme-editor flex justify-center">
             <div class="card ">
-                <h2 class="img-titel">IMG TITEL</h2>
+                <h2 class="img-titel">Memege Ganerator</h2>
                 <canvas id="canvas" width="600" height="600" onclick="onDraw(event)"></canvas>
             </div>
 
             <div class="card">
-                
-                
+
+
                 <section class="grid-container align-center">
-                    
+
                     <label for="text"></label>
-                    <input type="text iteminput" id="text" name="text" placeholder="Wriet Yours Text" onchange="onDrawText(this.value)">
-                    
+                    <input type="text iteminput" id="text" name="text" placeholder="Wriet Yours Text"
+                        onchange="onDrawText(this.value)">
+
                     <button class="btn-canvas itemswich" onclick="onSwichLine()">Swich Line</button>
 
                     <button class="btn-canvas itemtrash"><img src="icons/trash.png" onclick="onRemoveLine()"></button>
@@ -46,16 +47,30 @@
                     <button class="btn-canvas itemleft"><img src="icons/arrow.png" onclick="onTxtLeft()"></button>
                     <button class="btn-canvas itemright"><img src="icons/right-arrow.png" onclick="onTxtRghit()"></button>
                     <button class="btn-canvas itemdonw"><img src="icons/down-arrow.png" onclick="onTxtDonw()"></button>
-                   
                     <button class="btn-canvas itemadd"><img src="icons/add.png"></button>
-                    <button class="btn-canvas itembigeer"><img src="icons/big-size.png" onclick="onTxtBegger()"></button>
-                    <button class="btn-canvas itemlittel"><img src="icons/small-size.png" onclick="onTxtLittle()"></button>
+                    <button class="btn-canvas itembigeer"><img src="icons/big-size.png"onclick="onTxtBegger()"></button>
+                    <button class="btn-canvas itemlittel"><img src="icons/small-size.png"onclick="onTxtLittle()"></button>
+                    <label class="font-color ">
+                        <button type="button" class="btn-canvas itemfontcolor"><img src="icons/fontcolor.png" ></button>
+                        <input type="color" value="#ff0000" style="opacity:0; position:absolute; left:0;top:0;width:100% " onchange="onFontColor(value)"/>
+                    </label>
+                    <label class="stroke-color ">
+                        <button type="button"  class="btn-canvas itemstroke"><img src="icons/text_stroke.png"></button>
+                        <input type="color" value="#ff0000" style="opacity:0; position:absolute; left:0;top:0;width:100% " onchange="onStrokeColor(value)"/>
+                    </label>
+                
+                    <select class ="btn-canvas itemfont" onchange="onFont(this.value)">
+                        <option value="impact">Impact</option>
+                        <option value="ariel">Ariel</option>
+                        <option value="tahoma">Tahoma</option>
+                     </select>
                 </section>
             </div>
         </div>
         <div class="gallery-container">
         </div>
     </main>
+
 
     <footer>
 
