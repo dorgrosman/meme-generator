@@ -136,26 +136,13 @@ function swichLine() {
 
     if (gMeme.selectedLineIdx >= gMeme.lines.length) gMeme.selectedLineIdx = 0;
         
-    // var x = meme.lines[gMeme.selectedLineIdx].x
-    // var y = meme.lines[gMeme.selectedLineIdx].y
-
-    renderTxt(gMeme.lines);
     renderMeme()
     drawRect()
-
-    // console.log('gMeme.selectedLineIdx', gMeme.selectedLineIdx);
-
 }
 
 
 function findImsById(imgId) {
 
-    // var imgUrl = gImgs.find(function (img) {
-    //     if (imgId === img.id)
-    //         return img
-    // });
-    // console.log('imgUrl',imgUrl);
-    // return imgUrl
     return gImgs.find(img => {
         return img.id === imgId
     });
@@ -168,7 +155,6 @@ function getImgs() {
 
 function updataMeme(Id) {
     gMeme.selectedImgId = Id;
-    // console.log('gMemeeeee', gMeme);
 }
 
 function draw(ev) {
@@ -199,102 +185,3 @@ function getMeme() {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// function newText() {
-//     gSize = 40 ;
-//     var meme = {
-//         txt: document.getElementById('text').value,
-//         size: gSize,
-//         align: 'left',
-//         color: 'red'
-//     }
-
-//     gMeme.lines.push(meme);
-//     console.log('gMeme.liness', gMeme.lines);
-//     return meme.txt
-// }
-
-// function getDrawText(text) {
-//     // newText();
-
-//     if (text) gTxt = text;
-//     gCtx.beginPath();
-//     gCtx.strokeStyle = 'red'
-//     gCtx.fillStyle = 'white'
-//     gCtx.lineWidth = '2'
-//     gCtx.font = `${gSize}px IMPACT`
-//     gCtx.textAlign = 'start'
-//     gCtx.fillText(gTxt, 200, 200)
-//     gCtx.strokeText(gTxt, 200, 200)
-// }
-
-// function renderText(text , x , y ){
-//     if (!text) text = gTxt;
-//     gCtx.beginPath();
-//     gCtx.strokeStyle = 'red'
-//     gCtx.fillStyle = 'white'
-//     gCtx.lineWidth = '2'
-//     gCtx.font = `${gSize}px IMPACT`
-//     gCtx.textAlign = 'start'
-//     gCtx.fillText(text, x, y)
-//     gCtx.strokeText(text, x, y)
-// }
-// var gMeme = {
-//     selectedImgId: 0,
-//     selectedLineIdx: 0,
-
-//     lines: [{
-//         txt: 'I never eat Falafel',
-//         size: 20,
-//         align: 'left',
-//         color: 'red'
-//     }]
-// }
-
-// function newText() {
-
-//     var meme = {
-//         txt: document.getElementById('text').value,
-//         size: 20,
-//         align: 'left',
-//         color: 'red'
-//     }
-
-//     gMeme.lines.push(meme);
-
-//     // console.log('gMeme.lines',gMeme.lines);
-//     return meme.txt
-// }
-
-// function setSelctedImgId(imgId) {
-//     console.log('gMemeeeee', gMeme);
-//     gMeme.selectedImgId = imgId;
-// }

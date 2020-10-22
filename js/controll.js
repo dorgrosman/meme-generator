@@ -9,7 +9,6 @@ function init() {
     gCanvas = document.getElementById('canvas');
     gCtx = gCanvas.getContext('2d');
 
-
     renderImg();
     // renderMeme();
 }
@@ -19,20 +18,13 @@ function renderImg() {
     var imgs = getImgs();
     var strHtmls = imgs.map(function (img) {
         return `
-        <a class="gallery"> <img class="gallery-img" src="meme-imgs_(square)/${img.id}.jpg"  onclick="onUpdataMeme(${img.id})" > </a>
+        <a  class="gallery" id="gallery" href="#canvas"> <img class="gallery-img" src="meme-imgs_(square)/${img.id}.jpg"  onclick="onUpdataMeme(${img.id})"  > </a>
         `
     })
     document.querySelector('.gallery-container').innerHTML = strHtmls.join('')
 
 }
 
-// function handleClick(imgId) {
-    // setSelctedImgId(imgId);
-
-    // var srcImg = findImsById(imgId);
-    // renderCanvas(srcImg);
-    // drawCanvas(srcImg)
-// }
 
 function onUpdataMeme(Id){
 
@@ -48,51 +40,37 @@ function drawCanvas(srcImg) {
         gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
         renderTxt(meme.lines);
         gCtx.beginPath()
-        
         drawRect();
     }
     
 }
 
 function drawRect(){
-    
-
-
     // console.log('gCtx.measureText(meme.lines[gMeme.selectedLineIdx].txt)',gCtx.measureText(meme.lines[gMeme.selectedLineIdx].txt).width);
     var x = meme.lines[meme.selectedLineIdx].x
     var y = meme.lines[meme.selectedLineIdx].y
     var hight =meme.lines[meme.selectedLineIdx].size
-
     // var width =(gCtx.measureText(meme.lines[gMeme.selectedLineIdx].txt).width )
-
     // console.log('y',y);
     // console.log('x',x);
     // console.log('hight',hight);
     // console.log('width',width);
     // console.log('hight',y- hight);
-
-
+    
     gCtx.rect( x ,y -hight, gCtx.measureText(meme.lines[gMeme.selectedLineIdx].txt).width , hight)
     gCtx.strokeStyle = 'black'
     gCtx.stroke()
 
 }
 
-
-
 function renderMeme() {
-
     // console.log('meme.selectedImgId', meme.selectedImgId);
     var img = findImsById(meme.selectedImgId)
-
     drawCanvas(img.url);
-
 }
 
 function renderTxt(text) {
-
     text.forEach(line => {
-        
         drawText(line.txt, line.size,line.x,line.y);
     });
     
@@ -149,6 +127,10 @@ function onTxtLeft() {
 }
 function onSwichLine(){
     swichLine();
+}
+
+function onRemoveLine(){
+    removeLine();
 }
 
 

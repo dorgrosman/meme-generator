@@ -9,50 +9,59 @@
 </head>
 
 <body onload="init()">
- 
+
     <header class="main-header">
-        <div class="container continer-nav flex space-between align-center ">
-        <!-- <div class="logo"> <img src="icons/generate.png" ></div> -->
-        <!-- <ul class="main-nav clean-list flex">
-            <li><a href="#"></a></li>
-            <li><a href="#"></a></li>
-            <li><a href="#"></a></li>
-            <li><a href="#">T</a></li>
-        </ul> -->
-        <!-- <button onclick="toggleMenu()">☰</button> -->
-    </div>
+
+        <div class="container .header-container flex space-between align-center ">
+            <div class="logo"> <img src="icons/logo.png"></div>
+
+
+            <ul class="main-nav clean-list flex align-center justify-center">
+                <li><a href="#gallery" class="flex justify-center align-center active">Gallery</a></li>
+                <li><a href="#" class="flex justify-center align-center">About</a></li>
+            </ul>
+            <!-- <button onclick="toggleMenu()">☰</button> -->
+        </div>
     </header>
-    
-    <main>
 
-    
-    <h2 class="img-titel">IMG TITEL</h2>
-    <canvas id="canvas" width="600" height="600" onclick="onDraw(event)" ></canvas>
-    
-    <section class="add-txt">
-        <label for="text">TEXT :</label>
-        <input type="text" id="text" name="text" placeholder="Wriet text" onchange="onDrawText(this.value)"  >
-        
-        <button class="btn-canvas"  onclick="onSwichLine()" >Swich Line</button>
-        <button class="btn-canvas" ><img  src="icons/big-size.png"   onclick="onTxtBegger()"></button>
-        <button class="btn-canvas" ><img  src="icons/small-size.png"   onclick="onTxtLittle()"></button>
-        <button class="btn-canvas" ><img  src="icons/up-arrow.png"   onclick="onTxtUp()"></button>
-        <button class="btn-canvas" ><img src="icons/down-arrow.png"  onclick="onTxtDonw()" ></button>
-        <button class="btn-canvas" ><img  src="icons/arrow.png"   onclick="onTxtLeft()"></button>
-        <button class="btn-canvas" ><img  src="icons/right-arrow.png"   onclick="onTxtRghit()"></button>
+    <main class="main-content">
+        <div class="meme-editor flex">
+            <div class="card ">
+                <h2 class="img-titel">IMG TITEL</h2>
+                <canvas id="canvas" width="600" height="600" onclick="onDraw(event)"></canvas>
+            </div>
 
-    </section >
+            <div class="card">
+                
+                
+                <section class="grid-container align-center">
+                    
+                    <label for="text"></label>
+                    <input type="text iteminput" id="text" name="text" placeholder="Wriet Yours Text" onchange="onDrawText(this.value)">
+                    
+                    <button class=".btn-canvas itemswich" onclick="onSwichLine()">Swich Line</button>
 
-    <div class="gallery-container">
-    </div>
+                    <button class="btn-canvas itemtrash"><img src="icons/trash.png" onclick="onRemoveLine()"></button>
+                    <button class="btn-canvas itemup"><img src="icons/up-arrow.png" onclick="onTxtUp()"></button>
+                    <button class="btn-canvas itemleft"><img src="icons/arrow.png" onclick="onTxtLeft()"></button>
+                    <button class="btn-canvas itemright"><img src="icons/right-arrow.png" onclick="onTxtRghit()"></button>
+                    <button class="btn-canvas itemdonw"><img src="icons/down-arrow.png" onclick="onTxtDonw()"></button>
+                   
+                    <button class="btn-canvas itemadd"><img src="icons/add.png"></button>
+                    <button class="btn-canvas itembigeer"><img src="icons/big-size.png" onclick="onTxtBegger()"></button>
+                    <button class="btn-canvas itemlittel"><img src="icons/small-size.png" onclick="onTxtLittle()"></button>
+                </section>
+            </div>
+        </div>
+        <div class="gallery-container">
+        </div>
+    </main>
 
-       
-</main>
+    <footer>
 
-<footer>
-    
-</footer>
-    
+
+    </footer>
+
     <script src="/js/gallery-service.js"></script>
     <script src="/js/meme-service.js"></script>
     <script src="/js/controll.js"></script>
