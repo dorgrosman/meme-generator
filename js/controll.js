@@ -101,9 +101,6 @@ function onDrawText(text) {
 
 function onTxtBegger(text) {
     text =document.getElementById('text').value ;
-    // gCtx.measureText((meme.lines[gMeme.selectedLineIdx].txt).width +10)
-    // var newWidth =gCtx.measureText((meme.lines[gMeme.selectedLineIdx].txt).width +10)
-    // console.log('newWidth',  gCtx.measureText((meme.lines[gMeme.selectedLineIdx].txt).width +10));
     txtGetBegger(text);
 }
 

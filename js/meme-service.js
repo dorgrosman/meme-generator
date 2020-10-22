@@ -184,4 +184,8 @@ function getMeme() {
     return gMeme
 }
 
+function removeLine(){
+    
+}
+
 
