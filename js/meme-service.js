@@ -6,7 +6,7 @@ var gSize = 40;
 var ctx;
 var STORAGE_KEY = 'memeDB';
 var gMemes;
-var gCounter =0;
+var gCounter = 0;
 
 
 var gImgs = [{
@@ -146,15 +146,15 @@ function textGetLeft() {
 }
 
 function swichLine() {
-    console.log('gMeme',gMeme);
+    console.log('gMeme', gMeme);
 
     gCounter++;
     // console.log('gCounter', gCounter);
-    
+
     if (gCounter >= gMeme.lines.length) gCounter = 0;
-    
+
     gMeme.selectedLineIdx = gCounter;
-    console.log('gMeme',gMeme);
+    console.log('gMeme', gMeme);
 
     renderMeme()
     // drawRect()
@@ -187,17 +187,32 @@ function changeTxt(text, linesIdx) {
 
     gMeme.selectedLineIdx += 1
 
-    // if()
-    var newLine = {
-        txt: text,
-        size: 40,
-        x: 250,
-        y: 500,
-        align: 'left',
-        color: 'red',
-        stroke: 'black',
-        font: 'impact'
+    if (meme.selectedLineIdx === 1) {
+        var newLine = {
+            txt: text,
+            size: 40,
+            x: 250,
+            y: 500,
+            align: 'left',
+            color: 'red',
+            stroke: 'black',
+            font: 'impact'
+        }
+    } else {
+
+        var newLine = {
+            txt: text,
+            size: 40,
+            x: 250,
+            y: 300,
+            align: 'left',
+            color: 'red',
+            stroke: 'black',
+            font: 'impact'
+        }
     }
+
+
 
     gMeme.lines.push(newLine);
     _saveMemeToStorage();
@@ -215,21 +230,21 @@ function removeLine() {
     renderMeme();
     _saveMemeToStorage();
 }
-function fontColor(newColor){
+function fontColor(newColor) {
     gMeme.lines[gMeme.selectedLineIdx].color = newColor
     renderMeme();
     renderTxt(gMeme.lines);
     _saveMemeToStorage();
 }
 
-function strokeColor(color){
+function strokeColor(color) {
     gMeme.lines[gMeme.selectedLineIdx].stroke = color
     renderMeme();
     renderTxt(gMeme.lines);
     _saveMemeToStorage();
 }
 
-function font(newFont){
+function font(newFont) {
     gMeme.lines[gMeme.selectedLineIdx].font = newFont
     renderMeme();
     renderTxt(gMeme.lines);
@@ -238,6 +253,10 @@ function font(newFont){
 function _saveMemeToStorage() {
     saveToStorage(STORAGE_KEY, gMeme);
 }
+
+
+
+
 
 function uploadImg(elForm, ev) {
     ev.preventDefault();

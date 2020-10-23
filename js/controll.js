@@ -27,7 +27,6 @@ function renderImg() {
 
 
 function onUpdataMeme(Id) {
-
     updataMeme(Id);
     renderMeme();
 }
@@ -78,6 +77,9 @@ function renderTxt(text) {
 }
 
 function drawText(text, size, x, y, fontColor, strokeColor, font) {
+
+     
+
 
     gCtx.strokeStyle = strokeColor
     gCtx.fillStyle = fontColor
@@ -144,21 +146,51 @@ function onFont(onFont) {
     font(onFont);
 }
 
+function onToggleMenu() {
+    document.body.classList.toggle('menu-open')
+}
+
+function onToggleRead() {
+    document.body.classList.toggle('open-modal')
+    document.body.classList.toggle('screen')
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 function downloadCanvas(elLink) {
     const data = gCanvas.toDataURL()
     elLink.href = data
     elLink.download = 'my-img.jpg'
 }
-// function downloadCanvas(elLink) {
-//     const imgContent = gCanvas.toDataURL('image/jpeg');
-//     elLink.href = imgContent
-// }
+
 
 function onShare(elForm, ev){
-    // console.log('elForm',elForm);
-    // console.log('ev',ev);
-    uploadImg(elForm, ev) ;
+        uploadImg(elForm, ev) ;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function uploadImg(elForm, ev) {
     ev.preventDefault();
@@ -175,6 +207,14 @@ function uploadImg(elForm, ev) {
 
     doUploadImg(elForm, onSuccess);
 }
+
+
+
+
+
+
+
+
 
 function doUploadImg(elForm, onSuccess) {
     var formData = new FormData(elForm);

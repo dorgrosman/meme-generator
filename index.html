@@ -10,6 +10,9 @@
 
 <body onload="init()">
 
+    <div class="screen" onclick="onToggleMenu()"> X </div>
+    <div class="modal" onclick="onToggleRead()"> </div>
+
     <header class="main-header" id="header">
 
         <div class="container header-container flex space-between align-center ">
@@ -19,7 +22,7 @@
                 <li><a href="#gallery" class="flex justify-center align-center active">Gallery</a></li>
                 <li><a href="#canvas" class="flex justify-center align-center">Meme</a></li>
             </ul>
-            <!-- <button onclick="toggleMenu()">☰</button> -->
+            <button class="burger-menu"  onclick="onToggleMenu()"><img src="icons/list.png" alt=""></button>
         </div>
     </header>
 
