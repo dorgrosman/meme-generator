@@ -2,63 +2,74 @@
 
 
 var gSize = 40;
-var gTxt = 'I never eat Falafel'
+
 var ctx;
-var gCounter = 0
+var STORAGE_KEY = 'memeDB';
+var gMemes;
+var gCounter =0;
+
+
 var gImgs = [{
-    id: 1, url: 'meme-imgs_(square)/1.jpg', keywords: ['happy']
+    id: 1, url: 'img/meme-imgs_(square)/1.jpg', keywords: ['happy']
 },
 {
-    id: 2, url: 'meme-imgs_(square)/2.jpg', keywords: ['happy']
+    id: 2, url: 'img/meme-imgs_(square)/2.jpg', keywords: ['happy']
 },
 {
-    id: 3, url: 'meme-imgs_(square)/3.jpg', keywords: ['happy']
+    id: 3, url: 'img/meme-imgs_(square)/3.jpg', keywords: ['happy']
 },
 {
-    id: 4, url: 'meme-imgs_(square)/4.jpg', keywords: ['happy']
+    id: 4, url: 'img/meme-imgs_(square)/4.jpg', keywords: ['happy']
 },
 {
-    id: 5, url: 'meme-imgs_(square)/5.jpg', keywords: ['happy']
+    id: 5, url: 'img/meme-imgs_(square)/5.jpg', keywords: ['happy']
 },
 {
-    id: 6, url: 'meme-imgs_(square)/6.jpg', keywords: ['happy']
+    id: 6, url: 'img/meme-imgs_(square)/6.jpg', keywords: ['happy']
 },
 {
-    id: 7, url: 'meme-imgs_(square)/7.jpg', keywords: ['happy']
+    id: 7, url: 'img/meme-imgs_(square)/7.jpg', keywords: ['happy']
 },
 {
-    id: 8, url: 'meme-imgs_(square)/8.jpg', keywords: ['happy']
+    id: 8, url: 'img/meme-imgs_(square)/8.jpg', keywords: ['happy']
 },
 {
-    id: 9, url: 'meme-imgs_(square)/9.jpg', keywords: ['happy']
+    id: 9, url: 'img/meme-imgs_(square)/9.jpg', keywords: ['happy']
 },
 {
-    id: 10, url: 'meme-imgs_(square)/10.jpg', keywords: ['happy']
+    id: 10, url: 'img/meme-imgs_(square)/10.jpg', keywords: ['happy']
 },
 {
-    id: 11, url: 'meme-imgs_(square)/11.jpg', keywords: ['happy']
+    id: 11, url: 'img/meme-imgs_(square)/11.jpg', keywords: ['happy']
 },
 {
-    id: 12, url: 'meme-imgs_(square)/12.jpg', keywords: ['happy']
+    id: 12, url: 'img/meme-imgs_(square)/12.jpg', keywords: ['happy']
 },
 {
-    id: 13, url: 'meme-imgs_(square)/13.jpg', keywords: ['happy']
+    id: 13, url: 'img/meme-imgs_(square)/13.jpg', keywords: ['happy']
 },
 {
-    id: 14, url: 'meme-imgs_(square)/14.jpg', keywords: ['happy']
+    id: 14, url: 'img/img/meme-imgs_(square)/14.jpg', keywords: ['happy']
 },
 {
-    id: 15, url: 'meme-imgs_(square)/15.jpg', keywords: ['happy']
+    id: 15, url: 'img/meme-imgs_(square)/15.jpg', keywords: ['happy']
 },
 {
-    id: 16, url: 'meme-imgs_(square)/16.jpg', keywords: ['happy']
+    id: 16, url: 'img/meme-imgs_(square)/16.jpg', keywords: ['happy']
 },
 {
-    id: 17, url: 'meme-imgs_(square)/17.jpg', keywords: ['happy']
+    id: 17, url: 'img/meme-imgs_(square)/17.jpg', keywords: ['happy']
 },
 {
-    id: 18, url: 'meme-imgs_(square)/18.jpg', keywords: ['happy']
-}];
+    id: 18, url: 'img/meme-imgs_(square)/18.jpg', keywords: ['happy']
+},
+{
+    id: 19, url: 'img/meme-imgs_(square)/19.jpg', keywords: ['happy']
+},
+{
+    id: 20, url: 'img/meme-imgs_(square)/20.jpg', keywords: ['happy']
+}
+];
 
 var gMeme = {
     selectedImgId: 0,
@@ -82,6 +93,7 @@ function txtGetBegger(text) {
     gMeme.lines[gMeme.selectedLineIdx].size += size
     renderMeme()
     renderTxt(gMeme.lines);
+    _saveMemeToStorage()
 }
 
 function canvasItems() {
@@ -96,6 +108,7 @@ function txtGetLittle(text) {
     // var newWidth = ctx.measureText(gMeme.lines[gMeme.selectedLineIdx].txt).width - 10;
     renderMeme()
     renderTxt(gMeme.lines);
+    _saveMemeToStorage()
 }
 
 
@@ -104,6 +117,7 @@ function textGetUp() {
     gMeme.lines[gMeme.selectedLineIdx].y -= y
     renderMeme()
     renderTxt(gMeme.lines);
+    _saveMemeToStorage()
 }
 
 function textGetDonw() {
@@ -112,6 +126,7 @@ function textGetDonw() {
     gMeme.lines[gMeme.selectedLineIdx].y += y
     renderMeme()
     renderTxt(gMeme.lines);
+    _saveMemeToStorage()
 }
 
 function textGetRghit() {
@@ -119,6 +134,7 @@ function textGetRghit() {
     gMeme.lines[gMeme.selectedLineIdx].x += x
     renderMeme()
     renderTxt(gMeme.lines);
+    _saveMemeToStorage()
 }
 
 function textGetLeft() {
@@ -126,13 +142,12 @@ function textGetLeft() {
     gMeme.lines[gMeme.selectedLineIdx].x -= x
     renderMeme()
     renderTxt(gMeme.lines);
+    _saveMemeToStorage()
 }
 
 function swichLine() {
     console.log('gMeme',gMeme);
 
-    // gMeme.selectedLineIdx
-    // console.log('gCounter', gCounter);
     gCounter++;
     // console.log('gCounter', gCounter);
     
@@ -142,7 +157,8 @@ function swichLine() {
     console.log('gMeme',gMeme);
 
     renderMeme()
-    drawRect()
+    // drawRect()
+    _saveMemeToStorage()
 }
 
 
@@ -160,6 +176,7 @@ function getImgs() {
 
 function updataMeme(Id) {
     gMeme.selectedImgId = Id;
+    _saveMemeToStorage()
 }
 
 function draw(ev) {
@@ -183,9 +200,11 @@ function changeTxt(text, linesIdx) {
     }
 
     gMeme.lines.push(newLine);
+    _saveMemeToStorage();
 }
 
 function getMeme() {
+    _saveMemeToStorage();
     return gMeme
 }
 
@@ -194,23 +213,44 @@ function removeLine() {
     gMeme.lines.splice(gMeme.selectedLineIdx, 1);
     if (gMeme.selectedLineIdx > 0 && gMeme.selectedLineIdx) gMeme.selectedLineIdx -= 1;
     renderMeme();
+    _saveMemeToStorage();
 }
 function fontColor(newColor){
     gMeme.lines[gMeme.selectedLineIdx].color = newColor
-    renderMeme()
+    renderMeme();
     renderTxt(gMeme.lines);
-
+    _saveMemeToStorage();
 }
 
 function strokeColor(color){
     gMeme.lines[gMeme.selectedLineIdx].stroke = color
-    renderMeme()
+    renderMeme();
     renderTxt(gMeme.lines);
+    _saveMemeToStorage();
 }
 
 function font(newFont){
     gMeme.lines[gMeme.selectedLineIdx].font = newFont
-    renderMeme()
+    renderMeme();
     renderTxt(gMeme.lines);
+    _saveMemeToStorage();
+}
+function _saveMemeToStorage() {
+    saveToStorage(STORAGE_KEY, gMeme);
 }
 
+function uploadImg(elForm, ev) {
+    ev.preventDefault();
+    document.getElementById('imgData').value = gCanvas.toDataURL("image/jpeg");
+
+    // A function to be called if request succeeds
+    function onSuccess(uploadedImgUrl) {
+        uploadedImgUrl = encodeURIComponent(uploadedImgUrl)
+        document.querySelector('.share-container').innerHTML = `
+        <a class="btn" href="https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}'); return false;">
+           Share   
+        </a>`
+    }
+
+    doUploadImg(elForm, onSuccess);
+}
