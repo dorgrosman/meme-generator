@@ -124,8 +124,9 @@ function onTxtRghit() {
 function onTxtLeft() {
     textGetLeft();
 }
-function onSwichLine() {
-    swichLine();
+function onSwichLine(diff) {
+    console.log('diff',diff);
+    swichLine(diff);
 }
 
 function onRemoveLine() {

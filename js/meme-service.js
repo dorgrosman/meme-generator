@@ -145,16 +145,19 @@ function textGetLeft() {
     _saveMemeToStorage()
 }
 
-function swichLine() {
-    console.log('gMeme', gMeme);
+function swichLine(diff) {
 
-    gCounter++;
+    // gCounter++;
     // console.log('gCounter', gCounter);
 
-    if (gCounter >= gMeme.lines.length) gCounter = 0;
+    // if (gCounter >= gMeme.lines.length) gCounter = 0;
+    // gMeme.selectedLineIdx = gCounter;
+    if (gMeme.selectedLineIdx + diff >= gMeme.lines.length){ 
+        gMeme.selectedLineIdx = -1 ;
+    }
+    gMeme.selectedLineIdx +=diff
 
-    gMeme.selectedLineIdx = gCounter;
-    console.log('gMeme', gMeme);
+    console.log('gMeme.selectedLineIdx',gMeme.selectedLineIdx);
 
     renderMeme()
     // drawRect()
