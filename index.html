@@ -22,7 +22,7 @@
                 <li><a href="#gallery" class="flex justify-center align-center active">Gallery</a></li>
                 <li><a href="#canvas" class="flex justify-center align-center">Meme</a></li>
             </ul>
-            <button class="burger-menu"  onclick="onToggleMenu()"><img src="icons/list.png" alt=""></button>
+            <button class="burger-menu" onclick="onToggleMenu()"><img src="./icons/list.png" alt=""></button>
         </div>
     </header>
 
@@ -33,57 +33,107 @@
             </div>
         </div>
         <div class="meme-editor flex justify-center">
-            <div class="card ">
+            <div class="card gallery-card">
                 <h2 class="img-titel">Memege Ganerator</h2>
                 <canvas id="canvas" width="600" height="550" onclick="onDraw(event)"></canvas>
             </div>
 
-            <div class="card">
+            <div class="card ">
                 <section class="grid-container align-center">
                     <!-- <label for="text" grid-container></label> -->
-                    <input type="btn iteminput" id="text" name="text" placeholder="     Write Someting Nice!"
-                        onchange="onDrawText(this.value)">
+                    <input class="input " type="btn iteminput" id="text" name="text"
+                        placeholder="   Write Something Nice!" onchange="onDrawText(this.value)">
 
                     <button class="btn-canvas itemswich" onclick="onSwichLine(1)"><img src="icons/swich.png"></button>
 
-                    <button class="btn-canvas itemtrash"><img src="icons/trash.png" onclick="onRemoveLine()"></button>
-                    <button class="btn-canvas itemup"><img src="icons/up-arrow.png" onclick="onTxtUp()"></button>
-                    <button class="btn-canvas itemleft"><img src="icons/arrow.png" onclick="onTxtLeft()"></button>
-                    <button class="btn-canvas itemright"><img src="icons/right-arrow.png" onclick="onTxtRghit()"></button>
-                    <button class="btn-canvas itemdonw"><img src="icons/down-arrow.png" onclick="onTxtDonw()"></button>
-                    <button class="btn-canvas itemadd"><img src="icons/add.png"></button>
-                    <button class="btn-canvas itembigeer"><img src="icons/big-size.png" onclick="onTxtBegger()"></button>
-                    <button class="btn-canvas itemlittel"><img src="icons/small-size.png" onclick="onTxtLittle()"></button>          
-                    <a type="button" class="a itemShare" onsubmit="onShare(this, event)" enctype="multipart/form-data"><img src="icons/share.png" action="" method="POST"></a> 
+                    <button class="btn-canvas itemtrash"><img src="./icons/trash.png" onclick="onRemoveLine()"></button>
+                    <button class="btn-canvas itemup"><img src="./icons/up-arrow.png" onclick="onTxtUp()"></button>
+                    <button class="btn-canvas itemleft"><img src="./icons/arrow.png" onclick="onTxtLeft()"></button>
+                    <button class="btn-canvas itemright"><img src="./icons/right-arrow.png"
+                            onclick="onTxtRghit()"></button>
+                    <button class="btn-canvas itemdonw"><img src="./icons/down-arrow.png" onclick="onTxtDonw()"></button>
+                    <button class="btn-canvas itemadd"><img src="./icons/add.png"></button>
+                    <button class="btn-canvas itembigeer"><img src="icons/big-size.png"
+                            onclick="onTxtBegger()"></button>
+                    <button class="btn-canvas itemlittel"><img src="./icons/small-size.png"
+                            onclick="onTxtLittle()"></button>
+
                     <a href="#" type="button" class="a itemdownload" onclick="downloadCanvas(this)" download="">
-                    <img src="icons/donwload.png">
+                        <img src="icons/donwload.png">
                     </a>
-                    <a href="#" type="button" class="a itemupload" onclick="onUploadImg()" onsubmit="" method="POST" encytpe="multipart/from-data" >
-                    <img src="icons/folder.png">
+
+                    <a href="#footer" type="button" class="a itemupload" onclick="onUploadImg()" onsubmit="" method="POST"
+                        encytpe="multipart/from-data">
+                        <img src="icons/folder.png">
+
+                        <input type="file"  class="file-input btn" name="image" onchange="onImgInput(event)" />
                     </a>
-                            
+
                     <label class="font-color ">
-                        <button type="button" class="btn-canvas itemfontcolor" ><img src="icons/fontcolor.png"></button>
+                        <button type="button" class="btn-canvas itemfontcolor"><img src="./icons/fontcolor.png"></button>
                         <input type="color" value="#ff0000"
                             style="opacity:0; position:absolute; left:0;top:0;width:100% "
                             onchange="onFontColor(value)" />
                     </label>
                     <label class="stroke-color ">
-                        <button type="button" class="btn-canvas itemstroke"><img src="icons/text_stroke.png"></button>
+                        <button type="button" class="btn-canvas itemstroke"><img src="./icons/text_stroke.png"></button>
                         <input type="color" value="#ff0000"
                             style="opacity:0; position:absolute; left:0;top:0;width:100% "
                             onchange="onStrokeColor(value)" />
                     </label>
 
-                    <select class="btn-canvas itemfont" onchange="onFont(this.value)">
+                    <select class="itemfont" onchange="onFont(this.value)">
                         <option value="impact">Impact</option>
                         <option value="ariel">Ariel</option>
                         <option value="tahoma">Tahoma</option>
                     </select>
+
+                    <form class="btnshare" action="" method="POST" enctype="multipart/form-data" onsubmit="uploadImg(this, event)">
+                        <button class="btnshare" type="submit"><img src="./icons/share.png"></button>
+                        <input name="img" id="imgData" type="hidden" />
+                        <div class="share-container"></div>
+                    </form>
+
+
+
                 </section>
             </div>
         </div>
     </main>
+
+
+
+    <!-- <section class="bg-light" id="me" style="padding: 0px;">
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="team-member">
+              <img class="mx-auto rounded-circle" src="img/me.jpg" alt="">
+              <h4>Dor Grosman</h4>
+              <p class="text-muted">Lead Developer</p>
+              <ul class="list-inline social-buttons">
+                <li class="list-inline-item">
+                  <a href="https://www.instagram.com/?hl=en" target="_blank">
+                    <i class="fa fa-instagram"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="https://www.facebook.com/" target="_blank">
+                    <i class="fa fa-facebook"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="https://www.linkedin.com/feed/" target="_blank">
+                    <i class="fa fa-linkedin"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-sm-8 flex-align-center">
+            <p class="large text-muted  about-description">Hi, my name is .</p>
+          </div>
+        </div>
+      </section> -->
 
     <footer class="main-footer flex align-center justify-center column">
         <div class="footer-logo"> <img src="icons/logo.png"></div>

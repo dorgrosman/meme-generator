@@ -7,67 +7,69 @@ var ctx;
 var STORAGE_KEY = 'memeDB';
 var gMemes;
 var gCounter = 0;
-
+var gSaveMemeLocl=[];
+var gCounterUplaod = 0;
+var gContainer = 0;
 
 var gImgs = [{
-    id: 1, url: 'img/meme-imgs_(square)/1.jpg', keywords: ['happy']
+    id: 1, url: './img/1.jpg', keywords: ['happy']
 },
 {
-    id: 2, url: 'img/meme-imgs_(square)/2.jpg', keywords: ['happy']
+    id: 2, url: './img/2.jpg', keywords: ['happy']
 },
 {
-    id: 3, url: 'img/meme-imgs_(square)/3.jpg', keywords: ['happy']
+    id: 3, url: './img/3.jpg', keywords: ['happy']
 },
 {
-    id: 4, url: 'img/meme-imgs_(square)/4.jpg', keywords: ['happy']
+    id: 4, url: './img/4.jpg', keywords: ['happy']
 },
 {
-    id: 5, url: 'img/meme-imgs_(square)/5.jpg', keywords: ['happy']
+    id: 5, url: './img/5.jpg', keywords: ['happy']
 },
 {
-    id: 6, url: 'img/meme-imgs_(square)/6.jpg', keywords: ['happy']
+    id: 6, url: './img/6.jpg', keywords: ['happy']
 },
 {
-    id: 7, url: 'img/meme-imgs_(square)/7.jpg', keywords: ['happy']
+    id: 7, url: './img/7.jpg', keywords: ['happy']
 },
 {
-    id: 8, url: 'img/meme-imgs_(square)/8.jpg', keywords: ['happy']
+    id: 8, url: './img/8.jpg', keywords: ['happy']
 },
 {
-    id: 9, url: 'img/meme-imgs_(square)/9.jpg', keywords: ['happy']
+    id: 9, url: './img/9.jpg', keywords: ['happy']
 },
 {
-    id: 10, url: 'img/meme-imgs_(square)/10.jpg', keywords: ['happy']
+    id: 10, url: './img/10.jpg', keywords: ['happy']
 },
 {
-    id: 11, url: 'img/meme-imgs_(square)/11.jpg', keywords: ['happy']
+    id: 11, url: './img/11.jpg', keywords: ['happy']
 },
 {
-    id: 12, url: 'img/meme-imgs_(square)/12.jpg', keywords: ['happy']
+    id: 12, url: './img/12.jpg', keywords: ['happy']
 },
 {
-    id: 13, url: 'img/meme-imgs_(square)/13.jpg', keywords: ['happy']
+    id: 13, url: './img/13.jpg', keywords: ['happy']
 },
 {
-    id: 14, url: 'img/img/meme-imgs_(square)/14.jpg', keywords: ['happy']
+    id: 14, url: './img/14.jpg', keywords: ['happy']
 },
 {
-    id: 15, url: 'img/meme-imgs_(square)/15.jpg', keywords: ['happy']
+    id: 15, url: './img/15.jpg', keywords: ['happy']
 },
 {
-    id: 16, url: 'img/meme-imgs_(square)/16.jpg', keywords: ['happy']
+    id: 16, url: './img/16.jpg', keywords: ['happy']
 },
 {
-    id: 17, url: 'img/meme-imgs_(square)/17.jpg', keywords: ['happy']
+    id: 17, url: './img/17.jpg', keywords: ['happy']
 },
 {
-    id: 18, url: 'img/meme-imgs_(square)/18.jpg', keywords: ['happy']
+    id: 18, url: './img/18.jpg', keywords: ['happy']
 },
 {
-    id: 19, url: 'img/meme-imgs_(square)/19.jpg', keywords: ['happy']
+    id: 19, url: './img/19.jpg', keywords: ['happy']
 },
 {
-    id: 20, url: 'img/meme-imgs_(square)/20.jpg', keywords: ['happy']
+    id: 20, url: './img/20.jpg', keywords: ['happy']
 }
 ];
 
@@ -146,27 +148,21 @@ function textGetLeft() {
 }
 
 function swichLine(diff) {
-
-    // gCounter++;
-    // console.log('gCounter', gCounter);
-
-    // if (gCounter >= gMeme.lines.length) gCounter = 0;
-    // gMeme.selectedLineIdx = gCounter;
+    
     if (gMeme.selectedLineIdx + diff >= gMeme.lines.length){ 
         gMeme.selectedLineIdx = -1 ;
     }
+
     gMeme.selectedLineIdx +=diff
 
     console.log('gMeme.selectedLineIdx',gMeme.selectedLineIdx);
-
+    getMeme() 
     renderMeme()
-    // drawRect()
     _saveMemeToStorage()
 }
 
 
 function findImsById(imgId) {
-
     return gImgs.find(img => {
         return img.id === imgId
     });
@@ -189,7 +185,6 @@ function draw(ev) {
 function changeTxt(text, linesIdx) {
 
     gMeme.selectedLineIdx += 1
-
     if (meme.selectedLineIdx === 1) {
         var newLine = {
             txt: text,
@@ -214,8 +209,6 @@ function changeTxt(text, linesIdx) {
             font: 'impact'
         }
     }
-
-
 
     gMeme.lines.push(newLine);
     _saveMemeToStorage();
@@ -251,13 +244,25 @@ function font(newFont) {
     gMeme.lines[gMeme.selectedLineIdx].font = newFont
     renderMeme();
     renderTxt(gMeme.lines);
+    
     _saveMemeToStorage();
 }
+
 function _saveMemeToStorage() {
     saveToStorage(STORAGE_KEY, gMeme);
 }
 
+function onUploadImg() {
 
+    if (gCounterUplaod === 0) {
+        document.querySelector('.file-input').style.display = 'block';
+        gCounterUplaod = 1;
+    } else {
+        document.querySelector('.file-input').style.display = 'none';
+        gCounterUplaod = 0;
+    }
+    console.log(gCounterUplaod);
+}
 
 
 
@@ -265,7 +270,49 @@ function uploadImg(elForm, ev) {
     ev.preventDefault();
     document.getElementById('imgData').value = gCanvas.toDataURL("image/jpeg");
 
-    // A function to be called if request succeeds
+    function onSuccess(uploadedImgUrl) {
+        uploadedImgUrl = encodeURIComponent(uploadedImgUrl)
+        document.querySelector('.share-container').innerHTML = `
+        <a class="btn" href="https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}'); return false;">
+           Share   
+        </a>`
+    }
+    doUploadImg(elForm, onSuccess);
+}
+
+
+function doUploadImg(elForm, onSuccess) {
+    var formData = new FormData(elForm);
+    fetch('http://ca-upload.com/here/upload.php', {
+        method: 'POST',
+        body: formData
+    })
+        .then(function (res) {
+            return res.text()
+        })
+        .then(onSuccess)
+        .catch(function (err) {
+            console.error(err)
+        })
+}
+
+
+function loadImageFromInput(ev, onImageReady) {
+    document.querySelector('.share-container').innerHTML = ''
+    var reader = new FileReader();
+
+    reader.onload = function (event) {
+        var img = new Image();
+        img.onload = onImageReady.bind(null, img)
+        img.src = event.target.result;
+    }
+    reader.readAsDataURL(ev.target.files[0]);
+}
+
+
+function uploadImg(elForm, ev) {
+    ev.preventDefault();
+    document.getElementById('imgData').value = gCanvas.toDataURL("image/jpeg");
     function onSuccess(uploadedImgUrl) {
         uploadedImgUrl = encodeURIComponent(uploadedImgUrl)
         document.querySelector('.share-container').innerHTML = `

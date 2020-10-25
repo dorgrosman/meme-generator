@@ -2,15 +2,17 @@
 
 var gCanvas;
 var gCtx = canvasItems();
-
 var meme = getMeme();
+var gSaveMemeLocl = [];
+
+
 
 function init() {
     gCanvas = document.getElementById('canvas');
     gCtx = gCanvas.getContext('2d');
 
     renderImg();
-    // renderMeme();
+    
 }
 
 function renderImg() {
@@ -18,7 +20,7 @@ function renderImg() {
     var imgs = getImgs();
     var strHtmls = imgs.map(function (img) {
         return `
-        <a  class="gallery" id="gallery" href="#canvas"> <img class="gallery-img" src="img/meme-imgs_(square)/${img.id}.jpg"  onclick="onUpdataMeme(${img.id})"  ></a>
+        <a  class="gallery" id="gallery" href="#canvas"> <img class="gallery-img" src="./img/${img.id}.jpg"  onclick="onUpdataMeme(${img.id})"  ></a>
         `
     })
     document.querySelector('.gallery-container').innerHTML = strHtmls.join('')
@@ -41,22 +43,21 @@ function drawCanvas(srcImg) {
         gCtx.beginPath()
         drawRect();
     }
-
+    _saveMemeToStorage()
 }
 
 function drawRect() {
-    // console.log('gCtx.measureText(meme.lines[gMeme.selectedLineIdx].txt)',gCtx.measureText(meme.lines[gMeme.selectedLineIdx].txt).width);
+
+    console.log('gCtx.measureText(meme.lines[gMeme.selectedLineIdx].txt)', gCtx.measureText(meme.lines[gMeme.selectedLineIdx].txt).width);
     var x = meme.lines[meme.selectedLineIdx].x
     var y = meme.lines[meme.selectedLineIdx].y
     var hight = meme.lines[meme.selectedLineIdx].size
-    // var width =(gCtx.measureText(meme.lines[gMeme.selectedLineIdx].txt).width )
-    // console.log('y',y);
-    // console.log('x',x);
-    // console.log('hight',hight);
-    // console.log('width',width);
-    // console.log('hight',y- hight);
+    var width = (gCtx.measureText(meme.lines[gMeme.selectedLineIdx].txt).width)
+   
+    console.log('width', width);
+    
 
-    gCtx.rect(x, y - hight, gCtx.measureText(meme.lines[gMeme.selectedLineIdx].txt).width, hight)
+    gCtx.rect(x, y - hight, width, hight)
     gCtx.strokeStyle = 'black'
     gCtx.stroke()
 
@@ -65,6 +66,7 @@ function drawRect() {
 function renderMeme() {
     var img = findImsById(meme.selectedImgId)
     drawCanvas(img.url);
+
 }
 
 function renderTxt(text) {
@@ -73,13 +75,9 @@ function renderTxt(text) {
         drawText(line.txt, line.size, line.x, line.y, line.color, line.stroke, line.font);
     });
 
-    console.log('text', text);
 }
 
 function drawText(text, size, x, y, fontColor, strokeColor, font) {
-
-     
-
 
     gCtx.strokeStyle = strokeColor
     gCtx.fillStyle = fontColor
@@ -88,7 +86,12 @@ function drawText(text, size, x, y, fontColor, strokeColor, font) {
     gCtx.textAlign = 'start'
     gCtx.fillText(text, x, y)
     gCtx.strokeText(text, x, y)
-    // gCtx.beginPath();
+    
+}
+
+function displayPage(){
+
+
 }
 
 function onDraw(ev) {
@@ -108,7 +111,6 @@ function onTxtBegger(text) {
 
 function onTxtLittle(text) {
     text = document.getElementById('text').value;
-
     txtGetLittle(text);
 }
 
@@ -125,15 +127,14 @@ function onTxtLeft() {
     textGetLeft();
 }
 function onSwichLine(diff) {
-    console.log('diff',diff);
+    console.log('diff', diff);
     swichLine(diff);
 }
 
 function onRemoveLine() {
-    
-    if (window.confirm("Do you really want to remove this lin?")) { 
+    if (window.confirm("Do you really want to remove this lin?")) {
         removeLine();
-      }
+    }
 
 }
 function onFontColor(color) {
@@ -157,17 +158,6 @@ function onToggleRead() {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
 function downloadCanvas(elLink) {
     const data = gCanvas.toDataURL()
     elLink.href = data
@@ -175,61 +165,41 @@ function downloadCanvas(elLink) {
 }
 
 
-function onShare(elForm, ev){
-        uploadImg(elForm, ev) ;
+function onShare(elForm, ev) {
+    uploadImg(elForm, ev);
+
+}
+
+
+function renderCanvas(img) {
+    gCanvas.width = img.width;
+    gCanvas.height = img.height;
+    gCtx.drawImage(img, 0, 0);
+    // drawCanvas(img);
 }
 
 
 
+function onImgInput(ev) {
 
+    loadImageFromInput(ev, renderCanvas)
 
+}
 
+function loadImageFromInput(ev, onImageReady) {
+    document.querySelector('.share-container').innerHTML = ''
+    var reader = new FileReader();
 
-
-
-
-
-
-
-
-
-function uploadImg(elForm, ev) {
-    ev.preventDefault();
-    document.getElementById('imgData').value = gCanvas.toDataURL("image/jpeg");
-
-    // A function to be called if request succeeds
-    function onSuccess(uploadedImgUrl) {
-        uploadedImgUrl = encodeURIComponent(uploadedImgUrl)
-        document.querySelector('.share-container').innerHTML = `
-        <a class="btn" href="https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}'); return false;">
-           Share   
-        </a>`
+    reader.onload = function (event) {
+        var img = new Image();
+        img.onload = onImageReady.bind(null, img)
+        img.src = event.target.result;
     }
-
-    doUploadImg(elForm, onSuccess);
+    reader.readAsDataURL(ev.target.files[0]);
 }
+////////
 
 
 
-
-
-
-
-
-
-function doUploadImg(elForm, onSuccess) {
-    var formData = new FormData(elForm);
-    fetch('http://ca-upload.com/here/upload.php', {
-        method: 'POST',
-        body: formData
-    })
-    .then(function (res) {
-        return res.text()
-    })
-    .then(onSuccess)
-    .catch(function (err) {
-        console.error(err)
-    })
-}
 
 
