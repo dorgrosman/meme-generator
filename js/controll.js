@@ -192,6 +192,15 @@ function onImgInput(ev) {
     loadImageFromInput(ev, renderCanvas)
 }
 
+function renderCanvas(img) {
+    gCanvas.width = img.width;
+    gCanvas.height = img.height;
+    gCtx.drawImage(img, 0, 0);
+    drawCanvas(img);
+}
+
+
+
 function loadImageFromInput(ev, onImageReady) {
     document.querySelector('.share-container').innerHTML = ''
     var reader = new FileReader();

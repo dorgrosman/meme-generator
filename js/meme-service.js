@@ -81,7 +81,7 @@ var gMeme = {
         txt: 'I Love Meme Generator',
         size: 40,
         x: 150,
-        y: 100,
+        y: 50,
         align: 'left',
         color: 'red',
         stroke: 'black',
@@ -99,13 +99,13 @@ function addLine() {
         txt: 'Enter Nice Sentence',
         size: 40,
         x: 150,
-        y: 100 * currIdx +30,
+        y: 30*(currIdx+1) +20,
         align: 'left',
         color: 'red',
         stroke: 'black',
         font: 'impact'
     }
-
+     
      gMeme.lines.push(newLine);
 
      renderMeme();
