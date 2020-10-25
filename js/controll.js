@@ -20,21 +20,34 @@ function renderImg() {
     var imgs = getImgs();
     var strHtmls = imgs.map(function (img) {
         return `
-        <a  class="gallery" id="gallery" href="#canvas"> <img class="gallery-img" src="./img/${img.id}.jpg"  onclick="onUpdataMeme(${img.id})"  ></a>
+        <a  class="gallery" id="gallery" href="#canvas"> <img class="gallery-img" src="img/meme-imgs_(square)/${img.id}.jpg"  onclick="onUpdataMeme(${img.id})"  ></a>
         `
     })
     document.querySelector('.gallery-container').innerHTML = strHtmls.join('')
 
 }
 
-
 function onUpdataMeme(Id) {
+    document.querySelector('.gallery-main-container').style.display ='none'
+    document.querySelector('.meme-editor ').style.display ='flex'
+
+
     updataMeme(Id);
     renderMeme();
 }
+function onGalleryOpne(){
+    document.querySelector('.gallery-main-container').style.display ='flex'
+    document.querySelector('.meme-editor ').style.display ='none'
 
+}
+function onMemeOpne(){
+    document.querySelector('.gallery-main-container').style.display ='none'
+    document.querySelector('.meme-editor ').style.display ='flex'
+
+}
 function drawCanvas(srcImg) {
 
+    
     var img = new Image();
     img.src = srcImg;
     img.onload = () => {
@@ -47,11 +60,11 @@ function drawCanvas(srcImg) {
 }
 
 function drawRect() {
-
-    console.log('gCtx.measureText(meme.lines[gMeme.selectedLineIdx].txt)', gCtx.measureText(meme.lines[gMeme.selectedLineIdx].txt).width);
+    gCtx.font = `${meme.lines[meme.selectedLineIdx].size}px ${meme.lines[meme.selectedLineIdx].font}`
     var x = meme.lines[meme.selectedLineIdx].x
     var y = meme.lines[meme.selectedLineIdx].y
     var hight = meme.lines[meme.selectedLineIdx].size
+    
     var width = (gCtx.measureText(meme.lines[gMeme.selectedLineIdx].txt).width)
    
     console.log('width', width);
@@ -98,9 +111,14 @@ function onDraw(ev) {
     draw(ev);
 }
 
+function onAddLine(){
+  addLine();
+}
+
+
 function onDrawText(text) {
-    var currIdx = meme.selectedLineIdx
-    changeTxt(text, currIdx);
+    
+    changeTxt(text);
     renderMeme();
 }
 
@@ -170,26 +188,13 @@ function onShare(elForm, ev) {
 
 }
 
-
-function renderCanvas(img) {
-    gCanvas.width = img.width;
-    gCanvas.height = img.height;
-    gCtx.drawImage(img, 0, 0);
-    // drawCanvas(img);
-}
-
-
-
 function onImgInput(ev) {
-
     loadImageFromInput(ev, renderCanvas)
-
 }
 
 function loadImageFromInput(ev, onImageReady) {
     document.querySelector('.share-container').innerHTML = ''
     var reader = new FileReader();
-
     reader.onload = function (event) {
         var img = new Image();
         img.onload = onImageReady.bind(null, img)
@@ -197,7 +202,7 @@ function loadImageFromInput(ev, onImageReady) {
     }
     reader.readAsDataURL(ev.target.files[0]);
 }
-////////
+
 
 
 

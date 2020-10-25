@@ -19,16 +19,16 @@
             <div class="logo"> <img src="icons/logo.png"></div>
 
             <ul class="main-nav clean-list flex align-center justify-center">
-                <li><a href="#gallery" class="flex justify-center align-center active">Gallery</a></li>
-                <li><a href="#canvas" class="flex justify-center align-center">Meme</a></li>
+                <li><a href="#gallery" class="flex justify-center align-center active" onclick="onGalleryOpne()">Gallery</a></li>
+                <li><a href="#canvas" class="flex justify-center align-center" onclick="onMemeOpne()">Meme</a></li>
             </ul>
-            <button class="burger-menu" onclick="onToggleMenu()"><img src="./icons/list.png" alt=""></button>
+            <button class="burger-menu" onclick="onToggleMenu()"><img src="icons/list.png" alt=""></button>
         </div>
     </header>
 
     <main class="main-content">
 
-        <div class="flex justify-center align-center container">
+        <div class="gallery-main-container flex justify-center align-center container">
             <div class="gallery-container ">
             </div>
         </div>
@@ -42,20 +42,20 @@
                 <section class="grid-container align-center">
                     <!-- <label for="text" grid-container></label> -->
                     <input class="input " type="btn iteminput" id="text" name="text"
-                        placeholder="   Write Something Nice!" onchange="onDrawText(this.value)">
+                        placeholder="   Write Someting Nice!" onchange="onDrawText(this.value)">
 
                     <button class="btn-canvas itemswich" onclick="onSwichLine(1)"><img src="icons/swich.png"></button>
 
-                    <button class="btn-canvas itemtrash"><img src="./icons/trash.png" onclick="onRemoveLine()"></button>
-                    <button class="btn-canvas itemup"><img src="./icons/up-arrow.png" onclick="onTxtUp()"></button>
-                    <button class="btn-canvas itemleft"><img src="./icons/arrow.png" onclick="onTxtLeft()"></button>
-                    <button class="btn-canvas itemright"><img src="./icons/right-arrow.png"
+                    <button class="btn-canvas itemtrash"><img src="icons/trash.png" onclick="onRemoveLine()"></button>
+                    <button class="btn-canvas itemup"><img src="icons/up-arrow.png" onclick="onTxtUp()"></button>
+                    <button class="btn-canvas itemleft"><img src="icons/arrow.png" onclick="onTxtLeft()"></button>
+                    <button class="btn-canvas itemright"><img src="icons/right-arrow.png"
                             onclick="onTxtRghit()"></button>
-                    <button class="btn-canvas itemdonw"><img src="./icons/down-arrow.png" onclick="onTxtDonw()"></button>
-                    <button class="btn-canvas itemadd"><img src="./icons/add.png"></button>
+                    <button class="btn-canvas itemdonw"><img src="icons/down-arrow.png" onclick="onTxtDonw()"></button>
+                    <button class="btn-canvas itemadd"><img src="icons/add.png" onclick="onAddLine()"></button>
                     <button class="btn-canvas itembigeer"><img src="icons/big-size.png"
                             onclick="onTxtBegger()"></button>
-                    <button class="btn-canvas itemlittel"><img src="./icons/small-size.png"
+                    <button class="btn-canvas itemlittel"><img src="icons/small-size.png"
                             onclick="onTxtLittle()"></button>
 
                     <a href="#" type="button" class="a itemdownload" onclick="downloadCanvas(this)" download="">
@@ -70,13 +70,13 @@
                     </a>
 
                     <label class="font-color ">
-                        <button type="button" class="btn-canvas itemfontcolor"><img src="./icons/fontcolor.png"></button>
+                        <button type="button" class="btn-canvas itemfontcolor"><img src="icons/fontcolor.png"></button>
                         <input type="color" value="#ff0000"
                             style="opacity:0; position:absolute; left:0;top:0;width:100% "
                             onchange="onFontColor(value)" />
                     </label>
                     <label class="stroke-color ">
-                        <button type="button" class="btn-canvas itemstroke"><img src="./icons/text_stroke.png"></button>
+                        <button type="button" class="btn-canvas itemstroke"><img src="icons/text_stroke.png"></button>
                         <input type="color" value="#ff0000"
                             style="opacity:0; position:absolute; left:0;top:0;width:100% "
                             onchange="onStrokeColor(value)" />
@@ -89,7 +89,7 @@
                     </select>
 
                     <form class="btnshare" action="" method="POST" enctype="multipart/form-data" onsubmit="uploadImg(this, event)">
-                        <button class="btnshare" type="submit"><img src="./icons/share.png"></button>
+                        <button class="btnshare" type="submit"><img src="icons/share.png"></button>
                         <input name="img" id="imgData" type="hidden" />
                         <div class="share-container"></div>
                     </form>
@@ -144,9 +144,9 @@
     </footer>
 
     <script src="js/storge-meme.js"></script>
-    <script src="/js/gallery-service.js"></script>
-    <script src="/js/meme-service.js"></script>
-    <script src="/js/controll.js"></script>
+    <script src="js/gallery-service.js"></script>
+    <script src="js/meme-service.js"></script>
+    <script src="js/controll.js"></script>
 </body>
 
 </html>

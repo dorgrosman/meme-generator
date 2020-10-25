@@ -7,69 +7,69 @@ var ctx;
 var STORAGE_KEY = 'memeDB';
 var gMemes;
 var gCounter = 0;
-var gSaveMemeLocl=[];
+var gSaveMemeLocl = [];
 var gCounterUplaod = 0;
 var gContainer = 0;
 
 var gImgs = [{
-    id: 1, url: './img/1.jpg', keywords: ['happy']
+    id: 1, url: 'img/meme-imgs_(square)/1.jpg', keywords: ['happy']
 },
 {
-    id: 2, url: './img/2.jpg', keywords: ['happy']
+    id: 2, url: 'img/meme-imgs_(square)/2.jpg', keywords: ['happy']
 },
 {
-    id: 3, url: './img/3.jpg', keywords: ['happy']
+    id: 3, url: 'img/meme-imgs_(square)/3.jpg', keywords: ['happy']
 },
 {
-    id: 4, url: './img/4.jpg', keywords: ['happy']
+    id: 4, url: 'img/meme-imgs_(square)/4.jpg', keywords: ['happy']
 },
 {
-    id: 5, url: './img/5.jpg', keywords: ['happy']
+    id: 5, url: 'img/meme-imgs_(square)/5.jpg', keywords: ['happy']
 },
 {
-    id: 6, url: './img/6.jpg', keywords: ['happy']
+    id: 6, url: 'img/meme-imgs_(square)/6.jpg', keywords: ['happy']
 },
 {
-    id: 7, url: './img/7.jpg', keywords: ['happy']
+    id: 7, url: 'img/meme-imgs_(square)/7.jpg', keywords: ['happy']
 },
 {
-    id: 8, url: './img/8.jpg', keywords: ['happy']
+    id: 8, url: 'img/meme-imgs_(square)/8.jpg', keywords: ['happy']
 },
 {
-    id: 9, url: './img/9.jpg', keywords: ['happy']
+    id: 9, url: 'img/meme-imgs_(square)/9.jpg', keywords: ['happy']
 },
 {
-    id: 10, url: './img/10.jpg', keywords: ['happy']
+    id: 10, url: 'img/meme-imgs_(square)/10.jpg', keywords: ['happy']
 },
 {
-    id: 11, url: './img/11.jpg', keywords: ['happy']
+    id: 11, url: 'img/meme-imgs_(square)/11.jpg', keywords: ['happy']
 },
 {
-    id: 12, url: './img/12.jpg', keywords: ['happy']
+    id: 12, url: 'img/meme-imgs_(square)/12.jpg', keywords: ['happy']
 },
 {
-    id: 13, url: './img/13.jpg', keywords: ['happy']
+    id: 13, url: 'img/meme-imgs_(square)/13.jpg', keywords: ['happy']
 },
 {
-    id: 14, url: './img/14.jpg', keywords: ['happy']
+    id: 14, url: 'img/meme-imgs_(square)/14.jpg', keywords: ['happy']
 },
 {
-    id: 15, url: './img/15.jpg', keywords: ['happy']
+    id: 15, url: 'img/meme-imgs_(square)/15.jpg', keywords: ['happy']
 },
 {
-    id: 16, url: './img/16.jpg', keywords: ['happy']
+    id: 16, url: 'img/meme-imgs_(square)/16.jpg', keywords: ['happy']
 },
 {
-    id: 17, url: './img/17.jpg', keywords: ['happy']
+    id: 17, url: 'img/meme-imgs_(square)/17.jpg', keywords: ['happy']
 },
 {
-    id: 18, url: './img/18.jpg', keywords: ['happy']
+    id: 18, url: 'img/meme-imgs_(square)/18.jpg', keywords: ['happy']
 },
 {
-    id: 19, url: './img/19.jpg', keywords: ['happy']
+    id: 19, url: 'img/meme-imgs_(square)/19.jpg', keywords: ['happy']
 },
 {
-    id: 20, url: './img/20.jpg', keywords: ['happy']
+    id: 20, url: 'img/meme-imgs_(square)/20.jpg', keywords: ['happy']
 }
 ];
 
@@ -90,6 +90,27 @@ var gMeme = {
     ]
 }
 
+function addLine() {
+
+    ++gMeme.selectedLineIdx;
+    var currIdx = gMeme.selectedLineIdx;
+
+    const newLine = {
+        txt: 'Enter Nice Sentence',
+        size: 40,
+        x: 150,
+        y: 100 * currIdx +30,
+        align: 'left',
+        color: 'red',
+        stroke: 'black',
+        font: 'impact'
+    }
+
+     gMeme.lines.push(newLine);
+
+     renderMeme();
+}
+
 function txtGetBegger(text) {
     var size = 10;
     gMeme.lines[gMeme.selectedLineIdx].size += size
@@ -102,7 +123,6 @@ function canvasItems() {
     return ctx
 }
 
-
 function txtGetLittle(text) {
     var size = 10;
 
@@ -112,7 +132,6 @@ function txtGetLittle(text) {
     renderTxt(gMeme.lines);
     _saveMemeToStorage()
 }
-
 
 function textGetUp() {
     var y = 10;
@@ -124,7 +143,6 @@ function textGetUp() {
 
 function textGetDonw() {
     var y = 10;
-
     gMeme.lines[gMeme.selectedLineIdx].y += y
     renderMeme()
     renderTxt(gMeme.lines);
@@ -148,15 +166,14 @@ function textGetLeft() {
 }
 
 function swichLine(diff) {
-    
-    if (gMeme.selectedLineIdx + diff >= gMeme.lines.length){ 
-        gMeme.selectedLineIdx = -1 ;
+
+    if (gMeme.selectedLineIdx + diff >= gMeme.lines.length) {
+        gMeme.selectedLineIdx = -1;
     }
 
-    gMeme.selectedLineIdx +=diff
+    gMeme.selectedLineIdx += diff
 
-    console.log('gMeme.selectedLineIdx',gMeme.selectedLineIdx);
-    getMeme() 
+    getMeme()
     renderMeme()
     _saveMemeToStorage()
 }
@@ -182,35 +199,12 @@ function draw(ev) {
     const { offsetX, offsetY } = ev
 }
 
-function changeTxt(text, linesIdx) {
+function changeTxt(text) {
+    var currIdx = gMeme.selectedLineIdx
+    console.log('text', text);
+    console.log('currIdx', currIdx);
+    gMeme.lines[currIdx].txt = text;
 
-    gMeme.selectedLineIdx += 1
-    if (meme.selectedLineIdx === 1) {
-        var newLine = {
-            txt: text,
-            size: 40,
-            x: 250,
-            y: 500,
-            align: 'left',
-            color: 'red',
-            stroke: 'black',
-            font: 'impact'
-        }
-    } else {
-
-        var newLine = {
-            txt: text,
-            size: 40,
-            x: 250,
-            y: 300,
-            align: 'left',
-            color: 'red',
-            stroke: 'black',
-            font: 'impact'
-        }
-    }
-
-    gMeme.lines.push(newLine);
     _saveMemeToStorage();
 }
 
@@ -244,7 +238,7 @@ function font(newFont) {
     gMeme.lines[gMeme.selectedLineIdx].font = newFont
     renderMeme();
     renderTxt(gMeme.lines);
-    
+
     _saveMemeToStorage();
 }
 
