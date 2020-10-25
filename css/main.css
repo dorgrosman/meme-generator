@@ -220,10 +220,15 @@ a {
 }
 
 
+label input{
+    height: 100%;
+    cursor: pointer;
+}
 
 .stroke-color {
     grid-column: 6/7;
     grid-row: 2/3;
+    height: 100%;
     
 }
 
@@ -260,6 +265,7 @@ form {
 
 .btn-canvas:hover {
     background-color: #f0c758;
+    
 }
 
 .btnshare{

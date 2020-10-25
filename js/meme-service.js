@@ -9,7 +9,8 @@ var gMemes;
 var gCounter = 0;
 var gSaveMemeLocl = [];
 var gCounterUplaod = 0;
-var gContainer = 0;
+var gAxisY = 0;
+var gAxisX = 150;
 
 var gImgs = [{
     id: 1, url: 'img/meme-imgs_(square)/1.jpg', keywords: ['happy']
@@ -93,13 +94,19 @@ var gMeme = {
 function addLine() {
 
     ++gMeme.selectedLineIdx;
-    var currIdx = gMeme.selectedLineIdx;
+    
+
+
+    if(gAxisY===15) gAxisX=gAxisX+50;
+    if(gAxisY===15) gAxisY =0 ;
+    gAxisY++;
+    
 
     const newLine = {
         txt: 'Enter Nice Sentence',
         size: 40,
-        x: 150,
-        y: 30*(currIdx+1) +20,
+        x: gAxisX,
+        y: 30*(gAxisY+1) +20,
         align: 'left',
         color: 'red',
         stroke: 'black',

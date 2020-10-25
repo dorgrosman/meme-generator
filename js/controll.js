@@ -44,8 +44,6 @@ function onMemeOpne() {
 
 }
 function drawCanvas(srcImg) {
-
-
     var img = new Image();
     img.src = srcImg;
     img.onload = () => {
@@ -148,7 +146,7 @@ function onSwichLine(diff) {
 }
 
 function onRemoveLine() {
-    if (window.confirm("Do you really want to remove this lin?")) {
+    if (window.confirm("Do you really want to remove this line?")) {
         removeLine();
     }
 
