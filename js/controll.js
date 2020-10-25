@@ -20,7 +20,7 @@ function renderImg() {
     var imgs = getImgs();
     var strHtmls = imgs.map(function (img) {
         return `
-        <a  class="gallery" id="gallery" href="#canvas"> <img class="gallery-img" src="./img/${img.id}.png"  onclick="onUpdataMeme(${img.id})"  ></a>
+        <a  class="gallery" id="gallery" href="#canvas"> <img class="gallery-img" src="./img/${img.id}.jpg"  onclick="onUpdataMeme(${img.id})"  ></a>
         `
     })
     document.querySelector('.gallery-container').innerHTML = strHtmls.join('')
