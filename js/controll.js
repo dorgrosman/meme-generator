@@ -12,7 +12,7 @@ function init() {
     gCtx = gCanvas.getContext('2d');
 
     renderImg();
-    
+
 }
 
 function renderImg() {
@@ -28,26 +28,24 @@ function renderImg() {
 }
 
 function onUpdataMeme(Id) {
-    document.querySelector('.gallery-main-container').style.display ='none'
-    document.querySelector('.meme-editor ').style.display ='flex'
-
-
+    document.querySelector('.gallery-main-container').style.display = 'none'
+    document.querySelector('.meme-editor ').style.display = 'flex'
     updataMeme(Id);
     renderMeme();
 }
-function onGalleryOpne(){
-    document.querySelector('.gallery-main-container').style.display ='flex'
-    document.querySelector('.meme-editor ').style.display ='none'
+function onGalleryOpne() {
+    document.querySelector('.gallery-main-container').style.display = 'flex'
+    document.querySelector('.meme-editor ').style.display = 'none'
 
 }
-function onMemeOpne(){
-    document.querySelector('.gallery-main-container').style.display ='none'
-    document.querySelector('.meme-editor ').style.display ='flex'
+function onMemeOpne() {
+    document.querySelector('.gallery-main-container').style.display = 'none'
+    document.querySelector('.meme-editor ').style.display = 'flex'
 
 }
 function drawCanvas(srcImg) {
 
-    
+
     var img = new Image();
     img.src = srcImg;
     img.onload = () => {
@@ -64,11 +62,11 @@ function drawRect() {
     var x = meme.lines[meme.selectedLineIdx].x
     var y = meme.lines[meme.selectedLineIdx].y
     var hight = meme.lines[meme.selectedLineIdx].size
-    
+
     var width = (gCtx.measureText(meme.lines[gMeme.selectedLineIdx].txt).width)
-   
+
     console.log('width', width);
-    
+
 
     gCtx.rect(x, y - hight, width, hight)
     gCtx.strokeStyle = 'black'
@@ -99,10 +97,10 @@ function drawText(text, size, x, y, fontColor, strokeColor, font) {
     gCtx.textAlign = 'start'
     gCtx.fillText(text, x, y)
     gCtx.strokeText(text, x, y)
-    
+
 }
 
-function displayPage(){
+function displayPage() {
 
 
 }
@@ -111,13 +109,13 @@ function onDraw(ev) {
     draw(ev);
 }
 
-function onAddLine(){
-  addLine();
+function onAddLine() {
+    addLine();
 }
 
 
 function onDrawText(text) {
-    
+
     changeTxt(text);
     renderMeme();
 }
